@@ -1,3 +1,5 @@
+# Date : 11-12-2018
+# Author : Sietze Min
 from tkinter import *
 import sys
 
