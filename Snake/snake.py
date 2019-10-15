@@ -50,11 +50,11 @@ class Board(Canvas):
         """Loads the images form disk"""
 
         try:
-            self.idot = Image.open("/Users/sietzemin/OneDrive - Hanzehogeschool Groningen/Algemeen/Python/7-Projects/Snake/dot.png")
+            self.idot = Image.open("/Users/sietzemin/OneDrive - Hanzehogeschool Groningen/Algemeen/Projects/Snake/dot.png")
             self.dot = ImageTk.PhotoImage(self.idot)
-            self.ihead = Image.open("/Users/sietzemin/OneDrive - Hanzehogeschool Groningen/Algemeen/Python/7-Projects/Snake/head.png")
+            self.ihead = Image.open("/Users/sietzemin/OneDrive - Hanzehogeschool Groningen/Algemeen/Projects/Snake/head.png")
             self.head = ImageTk.PhotoImage(self.ihead)
-            self.iapple = Image.open("/Users/sietzemin/OneDrive - Hanzehogeschool Groningen/Algemeen/Python/7-Projects/Snake/apple.png")
+            self.iapple = Image.open("/Users/sietzemin/OneDrive - Hanzehogeschool Groningen/Algemeen/Projects/Snake/apple.png")
             self.apple = ImageTk.PhotoImage(self.iapple)
 
         except IOError as e:
