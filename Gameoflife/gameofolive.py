@@ -1,6 +1,8 @@
 # Date 10-09-2019
 # Author : Sietze Min
 import sys
+import math
+import random
 from tkinter import *
 
 
@@ -14,21 +16,42 @@ class App:
 
         self.screenWidth = width
         self.screenHeight = height
-
         c = Canvas(root, width=self.fullscreen_width, height=self.fullscreen_screen_height, bg='black')
         c.pack(side=BOTTOM)
+        self.drawGrid(c)
+        # self.fillMiddleCell(c)
+        # self.cellularAutomata(c)
 
-        self.drawSquare(c,5)
 
-    def drawSquare(self, c, amount):
-        x1 = 10
-        y1 = 10
-        for i in range(amount):
-            point = c.create_rectangle(x1,y1,x1+10,y1+10,fill="white")
-            x1 = x1 + 12
-            print(x1)
-            root.update()
+    def drawGrid(self, c):
+        res = 10 # resultion
+        x1 = 0
+        y1 = 0
+        rows = round(self.fullscreen_screen_height / res)
+        columns = round(self.fullscreen_width / res)
 
+        # draw grid
+        # grid = [rows,[columns]] # create a grid consisting of the rows and columns defined above. 
+        grid = [[random.randint(0,1) for x in range(rows)] for y in range(columns)] 
+        
+        for i in range(len(grid)):
+            for j in range(len(grid[i])):
+                point = c.create_rectangle(x1,0,x1+2,self.fullscreen_screen_height, fill="grey")
+                x1 = x1 + res
+                
+                point = c.create_rectangle(0,y1,self.fullscreen_width,y1+2,fill="grey")
+                y1 = y1 + res
+                
+                if grid[i][j] == 1:
+                    cell = c.create_rectangle(i*res,j*res,(i*res)+res,(j*res)+res,fill="white")
+                    # root.update()
+
+        root.update()
+
+    def cellularAutomata(self, c):
+        generation = []
+        neighbours = []
+        print(type(generation))
 root = Tk()
 app = App(root)
 root.mainloop()
