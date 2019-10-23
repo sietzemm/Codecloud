@@ -3,6 +3,7 @@
 import sys
 import math
 import random
+import threading
 from tkinter import *
 
 
@@ -16,18 +17,19 @@ class App:
 
         self.screenWidth = width
         self.screenHeight = height
-        c = Canvas(root, width=self.screenWidth, height=self.screenHeight, bg='black')
+        c = Canvas(root, width=self.fullscreen_width, height=self.fullscreen_screen_height, bg='black')
         c.pack(side=BOTTOM)
         self.drawGrid(c)
         # self.fillMiddleCell(c)
         # self.cellularAutomata(c)
    
+
     def drawGrid(self, c):
-        res = 10 # resolution
+        res = 50 # resolution
         # cols = 0 
         # rows = 0
-        rows = round(self.screenHeight / res)
-        columns = round(self.screenWidth / res)
+        rows = round(self.fullscreen_screen_height / res)
+        columns = round(self.fullscreen_width / res)
         
         # draw grid
         # grid = [rows,[columns]] # create a grid consisting of the rows and columns defined above. 
@@ -36,9 +38,14 @@ class App:
              for j in range(len(grid[i])):
                  if grid[i][j] == 1:
                      cell = c.create_rectangle(i*res,j*res,(i*res)+res,(j*res)+res,fill="white")               
+       
+
+     
         # This loop goes as long as the duration is set <========================================================================================================================================
+        # def thread_function(grid):
         while(TRUE):
-          
+            # counter = sys.t
+        
                 
             # print('current state')
             # for i in range(len(grid)):
@@ -218,7 +225,12 @@ class App:
                 for j in range(len(grid[i])):
                     if grid[i][j] == 1:
                         cell = c.create_rectangle(i*res,j*res,(i*res)+res,(j*res)+res,fill="white")   
+                    if grid[i][j] == 0:
+                        cell = c.create_rectangle(i*res,j*res,(i*res)+res,(j*res)+res,fill="black")  
             root.update()
+        
+        # x = threading.Thread(target=thread_function, args=(grid,), daemon=TRUE)
+        # x.start()
             # print('next state')
             # for i in range(len(grid)):
             #     print(grid[i])
