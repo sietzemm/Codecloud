@@ -6,10 +6,12 @@ import threading
 import random
 import time
 import os
+print(sys.version)
+
 from tkinter import *
 from pynput import keyboard
 from pydub import AudioSegment
-from pydub.playback import play
+from pynput.keyboard import Key
 
 print(sys.version)
 def main():
@@ -18,7 +20,7 @@ def main():
             self.root = root
             root.title = "Snake"
             self.c = Canvas(root, width = 500, height = 500, bg ="black")
-            self.gameOverSound = AudioSegment.from_wav('/Users/sietzem/dependencies/PythonSnake/audio/gameover2.wav')
+            # self.gameOverSound = AudioSegment.from_wav('/Users/sietzem/dependencies/PythonSnake/audio/gameover2.wav')
             self.soundBool = True
             self.c.pack()
             self.snakeLength = 1 # initial value should be 10
@@ -43,7 +45,7 @@ def main():
             # Initiate thread to update screen
             self.updatethread = threading.Thread(target = self.updateScreen)
             self.updatethread.start()
-
+            
             self.showScoreLbl = Label(root, text="SCORE : " + str(self.score), fg="red", font=("Helvetica", 12), bg="black")
             self.showScoreLbl.place(x = 390, y = 20)
     
@@ -66,7 +68,7 @@ def main():
                     # On the off change initial food coordinate coincides with start position of snake head, check this
                     if spawnX == 240 and spawnY == 240:
                         continue
-                    print('length is 0!')
+                    # print('length is 0!')
                     break # break out of loop if length is 0
                 
                 else: # Length of snake tail is not 0! calculate new coordinate
@@ -80,11 +82,11 @@ def main():
                     break
             
 
-            print('out of loop')
+            # print('out of loop')
             self.food.x1 = spawnX
             self.food.y1 = spawnY
             c.create_rectangle(spawnX,spawnY,spawnX+10,spawnY+10, fill="red")
-            print('Drawing food : ', spawnX, spawnY)
+            # print('Drawing food : ', spawnX, spawnY)
 
 
 
@@ -92,7 +94,7 @@ def main():
             self.snake = Snake(self.snakeLength,c, start_position) # Overwrites placeholder snake with initial snake
                 
         def updateScreen(self):
-            print("Start coordinates : ", self.snakeHeadPosition)
+            # print("Start coordinates : ", self.snakeHeadPosition)
             while(True):
                 print(self.gameOver)
                 self.drawSnake(self.c ,self.snakeLength, self.snakeHeadPosition)
@@ -114,10 +116,13 @@ def main():
                         self.setNewHeadPosition(self.snakeHeadPosition, -10,0) # x1 decreases with 10, y1 stays the same                  
                         
                 else:
-                    print("The game is over!")
+                    # print("The game is over!")
                     self.showGameOverScreen()
                     if self.soundBool == True:
-                        play(self.gameOverSound)
+                        try:
+                            play(self.gameOverSound)
+                        except:
+                            print('################# Sound file not found.')
                         self.soundBool == False
                 #Check if snake head collides with own body
                 self.checkIfSnakeHitSelf()
@@ -129,7 +134,7 @@ def main():
                 # print('last element in snakeTail : ', self.snakeTail[-1])
                 # print("Current head position : ", self.snakeHeadPosition)
                 # print("previous head position : ", self.snakeTail[-1])
-                print('step')
+                # print('step')
 
         def callBackReplayBtn(self):
             self.root.destroy()
@@ -162,19 +167,25 @@ def main():
             self.c.create_rectangle(x1,y1,x1+10,y1+10, fill = "black")
 
         def globalListener(self):
+            print('global listener start')
             def on_press(key):
                 try:
+                    print('1')
                     print('alphanumeric key {0} pressed'.format(key.char))
                 except AttributeError:
+                    print('2')
                     print('special key {0} pressed'.format(key))
 
             def on_release(key):
                 print('{0} released'.format(key))
 
-                if key == keyboard.Key.up:
+                if key == Key.up:
+                    # print('up key pressed')
                     self.snakeDirection = 0
 
                 if key == keyboard.Key.right:
+                    # print('right key pressed')
+
                     self.snakeDirection = 1
 
                 if key == keyboard.Key.down:
@@ -184,13 +195,14 @@ def main():
                     self.snakeDirection = 3
 
             listener = keyboard.Listener(on_press=on_press,on_release=on_release)
+            print('before listener start')
             listener.start()
             
         def calculateScore(self):
             self.score = self.score + 10
 
         def checkIfSnakeHitSelf(self):
-            print('snake tail content : ', self.snakeTail)
+            # print('snake tail content : ', self.snakeTail)
             for x in range(len(self.snakeTail)):
                 # print('checking : ', self.snakeHeadPosition[0], 'against : ', self.snakeTail[x][0])
 
@@ -198,9 +210,9 @@ def main():
                     self.gameOver = True
         
         def checkIfSnakeHitsFood(self):
-            print('checking food')
+            # print('checking food')
             if self.snakeHeadPosition[0] == self.food.x1 and self.snakeHeadPosition[1] == self.food.y1:
-                print('hit! condition true')
+                # print('hit! condition true')
                 # Draw new food object on screen
                 self.drawFood(self.c)
 
@@ -247,7 +259,6 @@ def main():
         # def drawBodyExtension(self, head_position,c):
         #     """Extends the snake body by adding one block behind its head on its previous coordinates"""
         #     c.create_rectangle(x1,y1,x2,y2, fill = self.bodyColor)
-
         #     print('draw snake body trailing from head position')
         
     class Food:
@@ -255,9 +266,10 @@ def main():
             self.x1 = x1
             self.y1 = y1
 
-
     root = Tk()
     app = App(root)
     root.mainloop()
 
 main()
+
+

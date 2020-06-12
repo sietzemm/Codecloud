@@ -71,6 +71,6 @@ def findSequence(DNA, sequence):
     print('MatchesLOC location : ',matchesLOC[:3])
 
 print(processDNA(output))
-print(findSequence(output, 'TATA'))
+print(findSequence(output, 'GGGG'))
 print('Finished.')
 

@@ -32,5 +32,5 @@ def generator(length):
     output = ""
     return output.join(sequence)
 
-writeToFile(generator(pow(10,3)))
+writeToFile(generator(pow(10,2)))
 
