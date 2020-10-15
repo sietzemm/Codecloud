@@ -1,7 +1,3 @@
-// Date : 09-10-2019
-// Author : Sietze Min
-// Desc : A simple timer for multiple purposes
-
 public class Main {
     Timer timer = new Timer();
     public static void main(String[] args){

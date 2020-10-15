@@ -23,7 +23,7 @@ class Game:
         self.scoreScreen = False
 
         self.foodLocation = []
-    
+        
         if self.startScreenBool == True:
             self.startScreen(self.screen, self.root)
 
@@ -33,8 +33,7 @@ class Game:
     def startScreen(self, screen, root):
         screen.create_text(self.screenWidth/2, ((self.screenHeight/2)+50), fill = "white", font="Times 20", text = "Made by Sietze Min")
         startBTN = screen.create_rectangle(self.screenWidth/2, self.screenWidth/2, (self.screenWidth/2)+100, (self.screenWidth/2)+20, fill="green", outline="grey60")
-
-        # def StartScreen(screen, root):
+        screen.create_text(self.screenWidth/2, ((self.screenHeight/2)+100), fill= "white", text="Start new game")
     
         # StartScreen(self.screen, self.root)
         
