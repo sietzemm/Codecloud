@@ -7,7 +7,6 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -40,10 +39,10 @@ public class Timer extends Application {
     private boolean check = false;
     public boolean backgroundCheck = false;
     public boolean isDay = true;
-    ArrayList<Label> worldObjList = new ArrayList<Label>();
+    ArrayList<Label> starsList = new ArrayList<Label>();
 
     BackgroundImage background_image_day = new BackgroundImage(
-            new Image(getClass().getResourceAsStream("images/background_day_clean.png")), BackgroundRepeat.REPEAT,
+            new Image(getClass().getResourceAsStream("images/background_day.png")), BackgroundRepeat.REPEAT,
             BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 
     BackgroundImage background_image_night = new BackgroundImage(
@@ -54,6 +53,37 @@ public class Timer extends Application {
     final String BTN_STYLE = "-fx-background-color: #45748a; -fx-border-solid: 2px; -fx-border-color: #244a5c;";
     final String BTN_HOVER_STYLE = "-fx-background-color: #02567d; -fx-cursor: hand";
 
+    // simple getter method
+    public boolean getBooleanValue(boolean b){
+        return backgroundCheck;
+    }
+
+    public boolean setBooleanValue(boolean b){
+        if(backgroundCheck == true){
+            backgroundCheck = false;
+        } else {
+            backgroundCheck = true;
+        }
+        return backgroundCheck;
+    }
+
+    public void setIsDay(boolean b, int i){
+        
+        // it is between 06:00 and 08:00
+        if (i == 0) {
+            // switch from night to day
+            if (b == false){
+                b = true;
+            }
+        }
+
+        if (i == 1){
+            // switch from day to night
+            if 
+
+        }
+   
+    }
 
     @Override
     public void start(Stage primaryStage) {
@@ -143,14 +173,15 @@ public class Timer extends Application {
                         Platform.runLater(new Runnable() {
                             @Override
                             public void run() {
-                                updateGUI(greetingLbl, root); // this methods calls other methods only when necessary
                                 changeBackground(root);
-
+                                changeMotivationalText(greetingLbl);
+                                
                                 // only if start button is pressed
-                                if (check == true) {                    
-                                    updateTimer(currentTimeLbl); // this is executed each second
-
+                                if (check == true) {
+                                    updateTime(currentTimeLbl);
                                 }
+
+                                // set isDay checker at two times each day
                             }
                         });
                         Thread.sleep(1000);
@@ -179,6 +210,7 @@ public class Timer extends Application {
             }
         }).start();
 
+
         Scene scene = new Scene(root, 350, 350);
         primaryStage.setResizable(false);
         primaryStage.setTitle("StudyTimer");
@@ -187,54 +219,7 @@ public class Timer extends Application {
 
     } // end of start method
 
-    // should only return current time
-    public void updateGUI(Label lbl, GridPane pane){
-        String currentTime1 = getCurrentTime();
-        String[] currentTime2 = currentTime1.split(":");
-        String currentTime3 = currentTime2[0] + currentTime2[1] + currentTime2[2];
-        String[] currentTime4 = currentTime3.split("");
-        int[] currTime = new int[currentTime4.length];
-
-        for(int i = 0; i < currTime.length; i++){
-            currTime[i] = Integer.parseInt(currentTime4[i]);
-        }
-
-        // if time hour is between midnight (00:00) and 20:00 
-        if (currTime[0] == 0 || currTime[0] == 1){
-
-            // if time hour is btween 00:00 and 06:00
-            if (currTime[0] == 0 && currTime[1] < 6){
-                lbl.setText("Burning the midnight oil!");
-            }
-            // if time hour is between 06:00 and 10:00
-            if (currTime[0] == 0 && currTime[1] >= 6 && currTime[1] <= 9){
-                lbl.setText("You are an early bird Sietze!");
-            }
-
-            // if time hour is between 10:00 and 12:00
-            if (currTime[0] == 1 && currTime[1] >= 0 && currTime[1] <= 2){
-                lbl.setText("Good morning Sietze!");
-            }
-
-            // if time hour is between 12:00 and 20:00
-            if (currTime[0] == 1 && currTime[1] >= 2 && currTime[1] <= 9){
-                lbl.setText("Good afternoon Sietze!");
-            }
-
-        }
-        // if time hour is 2 (20:00 - 00:00)
-        if (currTime[0] == 2){
-            lbl.setText("Good evenings Sietze!");
-
-            // set background to night at exactly 20:00 and only 20:00
-            if(currTime[1] == 0 && currTime[2] == 0 && currTime[3]== 0 && currTime[4] == 0 && currTime[5] == 0){
-                changeBackground(pane);
-            }
-        }
-    }
-    
-    public void updateTimer(Label label) {
-
+    public void updateTime(Label label) {
         // Seconden
         if (second < 10) {
             // System.out.println("Updating second : " + second);
@@ -277,61 +262,111 @@ public class Timer extends Application {
         }
     }
 
-    public void setInitialBgObj(GridPane pane, int amount, boolean isDay){
-     
-        for (int i = 0; i < amount; i++) {
-            Label worldObjLbl = new Label();
-            Image stars = new Image("images/star.png");
-            Image clouds = new Image("images/cloud.png");
-            int imageSize = (int) (Math.random() * 10 + 5); // Random image size
-            int initXcoordinate = (int )(Math.random() * 350 + 1);
-            int initYcoordinate = (int )(Math.random() * -250 + 1);
-            worldObjLbl.setTranslateX(initXcoordinate);
-            worldObjLbl.setTranslateY(initYcoordinate);
-            pane.add(worldObjLbl,0,2);
-            worldObjList.add(worldObjLbl);
-            if (isDay == true){
-                ImageView view = new ImageView(clouds);
-                imageSize = (int) (Math.random() * 20 + 5); // Random image size
+    public void changeMotivationalText(Label label) {
+        int[] hourAr = new int[4];
+        hourAr[0] = Integer.valueOf(getCurrentTime().substring(0, 1));
+        hourAr[1] = Integer.valueOf(getCurrentTime().substring(1, 2));
 
-                view.setFitHeight(imageSize);
-                view.setPreserveRatio(true);
-                worldObjLbl.setGraphic(view);
-            } else {
-                ImageView view = new ImageView(stars);
-                view.setFitHeight(imageSize);
-                view.setPreserveRatio(true);
-                worldObjLbl.setGraphic(view); 
-            }
+        // minutes
+        // minuteAr[0] = Integer.valueOf(getCurrentTime().substring(2,1));
+        // minuteAr[1] = Integer.calueOf(getcurrentTime().substring(3,1));
+
+        int hourD1 = hourAr[0];
+        int hourD2 = hourAr[1];
+        int hour = Integer.valueOf(getCurrentTime().substring(0, 2));
+
+        // System.out.println(hourD1 + ":" + hourD2);
+        // Message between 06:00 and 08:00
+        if (hourD1 == 0 && hourD2 >= 6 && hourD2 < 8) {
+            label.setText("Your'e an early bird");
+            System.out.println("Early bird");
+
+   
+        if (hour >= 10 && hour < 12){
+            label.setText("Good morning Sietze");
+        }
+  
+        // Message between 12:00 and 18:00
+        if (hour >= 12 && hour < 18) {
+            label.setText("Good afternoon Sietze");
+            // System.out.println("Good afternoon Sietze")
+        }
+
+        // Message between 18:00 and 00:00
+        if (hour >= 18 && hour < 24) {
+            label.setText("Good evening Sietze");
+
+            // Change boolean isDay to night
+            // System.out.println("Good evening Sietze");
+        }
+
+        // Message between 00:00 and 06:00
+        if (hourD1 == 0 && hourD2 < 6){
+            label.setText("Burning the midnight oil");
         }
     }
+
+    public void setInitialStars(GridPane pane, int amount){
+        // First check if starsList is empty
+        for (int i = 0; i < amount; i++) {
+            Label starLbl = new Label();
+            Image img = new Image("images/star.png");
+            ImageView view = new ImageView(img);
+
+            int imageSize = (int) (Math.random() * 10 + 5); // Random image size
+            view.setFitHeight(imageSize);
+            view.setPreserveRatio(true);
+            starLbl.setGraphic(view);
+
+            int initXcoordinate = (int )(Math.random() * 350 + 1);
+            int initYcoordinate = (int )(Math.random() * -250 + 1);
     
+            starLbl.setTranslateX(initXcoordinate);
+            starLbl.setTranslateY(initYcoordinate);
+            pane.add(starLbl,0,2);
+            starsList.add(starLbl);
+          }
+        //   System.out.println("function space content : " + starsList.get(0));
+
+    }
+
     public void changeBackground(GridPane pane) {
-        // if time >= 20:00 
         if (Integer.valueOf(getCurrentTime().substring(0, 1)) == 2) {
             pane.setBackground(new Background(background_image_night));
-            if (worldObjList.size() == 0){
-                setInitialBgObj(pane, 20, false);
+
+            if (getBooleanValue(backgroundCheck) == false){
+                setInitialStars(pane, 10);
+                setBooleanValue(backgroundCheck); // changes checkBackground to true
             }
 
         } else {
             pane.setBackground(new Background(background_image_day));
-            if (worldObjList.size() == 0){
-                setInitialBgObj(pane, 10, true);
-            }
         }
     }
-    
+
+    public void animateBackground2(){
+        // animate both stars and clouds
+        // if time = day animati clouds
+        // if time = night animate stars
+
+
+    }
     public void animateBackground(){
-            for (int i = 0; i < worldObjList.size(); i++){                
-                double oldX = worldObjList.get(i).getTranslateX();
+        if (starsList.size() != 0){ // if list == 0, inner clause can not happen
+            System.out.println("Starslist contents out of function space : " + starsList.get(0));
+            for (int i = 0; i < starsList.size(); i++){
+                // System.out.println("Coordinates of star :" + i + " : " + starsList.get(i).getTranslateX());
+                // System.out.println("Coordinates of star :" + i + " : " + starsList.get(i).getTranslateY());
+                
+                double oldX = starsList.get(i).getTranslateX();
                 // update coordinates
                 if(oldX + 1 >= 350){
-                    worldObjList.get(i).setTranslateX(0); // if star x-coordinate is bigger than screenwidth, reset to 0. 
+                    starsList.get(i).setTranslateX(0); // if star x-coordinate is bigger than screenwidth, reset to 0. 
                 } else {
-                    worldObjList.get(i).setTranslateX(oldX + 0.25);
+                    starsList.get(i).setTranslateX(oldX + 0.25);
                 }
             }
+        }
     }
 
     public String getCurrentTime() {
