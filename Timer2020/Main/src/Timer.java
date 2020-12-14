@@ -35,8 +35,9 @@ public class Timer extends Application {
     // Date/Time variables
     SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
     private String dateString = format.format(new Date());
-    private int minute = 00;
-    private int hour, second = 0;
+    private int minute = 0;
+    private int hour = 0;
+    private int second = 0;
     private boolean check = false;
     public boolean backgroundCheck = false;
     public boolean isDay = true;
@@ -67,7 +68,7 @@ public class Timer extends Application {
         currentTimeLbl.setFont(Font.font("Cambria", 22));
         root.add(currentTimeLbl, 0, 0);
 
-        Label greetingLbl = new Label("hello world");
+        Label greetingLbl = new Label("Good morning!");
         root.setMargin(greetingLbl, new Insets(-175, 0, 0, 85));
         greetingLbl.setTextFill(Color.web("#ffffff"));
         greetingLbl.setFont(Font.font("Cambria", 18));
@@ -232,48 +233,42 @@ public class Timer extends Application {
             }
         }
     }
-    
+
     public void updateTimer(Label label) {
-
-        // Seconden
-        if (second < 10) {
-            // System.out.println("Updating second : " + second);
+        // seconden
+        if (second < 9){
             label.setText("0" + String.valueOf(hour) + ":0" + String.valueOf(minute) + ":0" + String.valueOf(second));
-            second++;
+            second ++;
 
+            if (minute < 10){
+                label.setText("0" + String.valueOf(hour) + ":0" + String.valueOf(minute) + ":0" + String.valueOf(second));
+            } else {
+                label.setText("0" + String.valueOf(hour) + ":" + String.valueOf(minute) + ":0" + String.valueOf(second));
+            }
+
+        } else {     
+            second ++;     
+            label.setText("0" + String.valueOf(hour) + ":0" + String.valueOf(minute) + ":" + String.valueOf(second)); 
+  
+
+            if (minute < 10){
+                label.setText("0" + String.valueOf(hour) + ":0" + String.valueOf(minute) + ":" + String.valueOf(second));
+            } else {
+                label.setText("0" + String.valueOf(hour) + ":" + String.valueOf(minute) + ":" + String.valueOf(second));
+            }
+        
         }
-        if (second >= 10 && second < 60) {
-            // System.out.println("Updating second : " + second);
-            label.setText("0" + String.valueOf(hour) + ":0" + String.valueOf(minute) + ":" + String.valueOf(second));
-            second++;
-        }
-        //
         if (second == 60) {
-            minute++;
-            second = 0;
-            label.setText("0" + String.valueOf(hour) + ":0" + String.valueOf(minute) + ":0" + String.valueOf(second));
-        }
+            
+                // hour = 0 ;
+                second = 0;
+                minute ++;
+                }
 
-        if (minute != 0 && minute < 10 && second >= 10) {
-            label.setText("0" + String.valueOf(hour) + ":0" + String.valueOf(minute) + ":" + String.valueOf(second));
-        }
-        if (minute >= 10 && minute < 60 && second < 10) {
-            label.setText("0" + String.valueOf(hour) + ":" + String.valueOf(minute) + ":0" + String.valueOf(second));
-        }
-        //
         if (minute == 60) {
-            hour++;
-            minute = 0;
-            second = 0;
-            label.setText("0" + String.valueOf(hour) + ":" + String.valueOf(minute) + ":" + String.valueOf(second));
-        }
-        //
-        if (hour < 10 && minute < 10 && second < 10) {
-            label.setText("0" + String.valueOf(hour) + ":0" + String.valueOf(minute) + ":0" + String.valueOf(second));
-        }
-
-        if (hour >= 10 && minute < 10 && second < 10) {
-            label.setText(String.valueOf(hour) + ":0" + String.valueOf(minute) + ":0" + String.valueOf(second));
+                hour ++;
+                // second = 0;
+                minute = 0;
         }
     }
 

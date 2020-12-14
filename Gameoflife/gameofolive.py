@@ -25,7 +25,7 @@ class App:
    
 
     def drawGrid(self, c):
-        res = 15 # resolution
+        res = 60 # resolution
         # cols = 0 
         # rows = 0
         rows = round(self.fullscreen_screen_height / res)
