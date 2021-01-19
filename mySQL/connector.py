@@ -9,7 +9,7 @@ import mysql.connector as mysql
 db = mysql.connect(
     host = "localhost",
     user = "root",
-    passwd = ".", ## #################insert correct password here ###########################%#%#%#%#%#%#%#$$#$#$#$#$$$@#@#@
+    passwd = "studentroot", ## #################insert correct password here ###########################%#%#%#%#%#%#%#$$#$#$#$#$$$@#@#@
     database = "datacamp"
 )
 cursor = db.cursor()
@@ -26,11 +26,8 @@ cursor = db.cursor()
 # cursor.execute(query, values)
 # db.commit()
 
-
 query = "SELECT * FROM users"
 cursor.execute(query)
 records = cursor.fetchall()
 for record in records:
     print(record)
-
-
