@@ -1,0 +1,33 @@
+
+1. Choose a biological relevant subject where a bioinformatics / computational biology program 
+can solve at least a small part of the problem / research question.
+
+Subjects : 
+    1. Computational neuroscience
+        1.1. Single neuron modelling
+
+        Hence there is a drive to produce simplified neuron models that can retain significant biological fidelity at a 
+        low computational overhead. Algorithms have been developed to produce faithful, faster running, simplified 
+        surrogate neuron models from computationally expensive, detailed neuron models.
+
+        1.2. The Blue Brain project (EFPL)
+
+        1.3. Python implementation of NEURON / GENESIS
+
+        1.4. NeuroMorphoVis (In combinatie met blender!!)
+        
+        1.6. Neurodegenerative disorders (Huntington, Parkinson, ALS)
+
+        1.7. Brain wave (EEG) interpretation to diagnose brain disorders
+
+    2. Medicine and Physiology
+        2.2 - Machine learning image processing x-ray scans of thorax
+
+    3. Species simulation
+
+    4. Genetic / Evolutionary Algorithms
+
+    5. Cellular automata
+
+
+
