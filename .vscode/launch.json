@@ -6,6 +6,16 @@
     "configurations": [
         {
             "type": "java",
+<<<<<<< HEAD
+=======
+            "name": "Launch Main",
+            "request": "launch",
+            "mainClass": "Main",
+            "projectName": "Programming Projects_8743bd14"
+        },
+        {
+            "type": "java",
+>>>>>>> main
             "name": "CodeLens (Launch) - Main",
             "request": "launch",
             "mainClass": "Timer2020.Main.src.Main",

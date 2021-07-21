@@ -1,5 +1,9 @@
 // Author : Sietze Min
+<<<<<<< HEAD
 // Last modified : 15-10-2020
+=======
+// Last modified : 21-07-2021
+>>>>>>> main
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -41,7 +45,11 @@ public class Timer extends Application {
     private boolean check = false;
     public boolean backgroundCheck = false;
     public boolean isDay = true;
+<<<<<<< HEAD
     ArrayList<Label> worldObjList = new ArrayList<Label>();
+=======
+    ArrayList<Label> worldObjList = new ArrayList<Label>(); // contains the cloud and stars
+>>>>>>> main
 
     BackgroundImage background_image_day = new BackgroundImage(
             new Image(getClass().getResourceAsStream("images/background_day_clean.png")), BackgroundRepeat.REPEAT,
@@ -131,6 +139,10 @@ public class Timer extends Application {
                 currentTimeLbl.setText("00:00:00");
                 motivationalTextLbl.setText("");
                 resetBtn.setCursor(Cursor.HAND);
+<<<<<<< HEAD
+=======
+                startBtn.setText("Start timer");
+>>>>>>> main
             }
         });
         root.add(resetBtn, 0, 4);
@@ -278,7 +290,11 @@ public class Timer extends Application {
             Label worldObjLbl = new Label();
             Image stars = new Image("images/star.png");
             Image clouds = new Image("images/cloud.png");
+<<<<<<< HEAD
             int imageSize = (int) (Math.random() * 10 + 5); // Random image size
+=======
+            int imageSize = (int) ((Math.random() * 10 + 5)); // Random image size
+>>>>>>> main
             int initXcoordinate = (int )(Math.random() * 350 + 1);
             int initYcoordinate = (int )(Math.random() * -250 + 1);
             worldObjLbl.setTranslateX(initXcoordinate);
@@ -287,7 +303,11 @@ public class Timer extends Application {
             worldObjList.add(worldObjLbl);
             if (isDay == true){
                 ImageView view = new ImageView(clouds);
+<<<<<<< HEAD
                 imageSize = (int) (Math.random() * 20 + 5); // Random image size
+=======
+                imageSize = (int) (Math.random() * 20 + 5); // Random image size recalibrated for clouds
+>>>>>>> main
 
                 view.setFitHeight(imageSize);
                 view.setPreserveRatio(true);
@@ -322,7 +342,14 @@ public class Timer extends Application {
                 double oldX = worldObjList.get(i).getTranslateX();
                 // update coordinates
                 if(oldX + 1 >= 350){
+<<<<<<< HEAD
                     worldObjList.get(i).setTranslateX(0); // if star x-coordinate is bigger than screenwidth, reset to 0. 
+=======
+                //    worldObjList.get(i).setTranslateX(0); // 
+                    worldObjList.get(i).setTranslateX(-worldObjList.get(i).getWidth()); // if star x-coordinate is bigger than screenwidth, reset to 0. 
+                    // String str = Double.toString(worldObjList.get(i).getTranslateX());
+                    // System.out.println("Return vale of getTranslateX : " + str);
+>>>>>>> main
                 } else {
                     worldObjList.get(i).setTranslateX(oldX + 0.25);
                 }
