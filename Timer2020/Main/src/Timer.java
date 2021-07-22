@@ -64,9 +64,11 @@ public class Timer extends Application {
 
         Label currentTimeLbl = new Label("00:00:00");
         root.setMargin(currentTimeLbl, new Insets(25, 0, 100, 125));
-        currentTimeLbl.setTextFill(Color.web("#ffffff"));
+        currentTimeLbl.setTextFill(Color.web("#cecece"));
         currentTimeLbl.setFont(Font.font("Cambria", 22));
+        currentTimeLbl.toFront();
         root.add(currentTimeLbl, 0, 0);
+        currentTimeLbl.toFront();
 
         Label greetingLbl = new Label("Good morning!");
         root.setMargin(greetingLbl, new Insets(-175, 0, 0, 85));
@@ -289,7 +291,13 @@ public class Timer extends Application {
             if (isDay == true){
                 ImageView view = new ImageView(clouds);
                 imageSize = (int) (Math.random() * 20 + 5); // Random image size recalibrated for clouds
-
+                    
+                    // make clouds appear farther away by making them opaque
+                    if (imageSize <= 11){
+                        worldObjLbl.setOpacity(0.5);
+                        System.out.println("Changed opacity!" + Integer.toString(imageSize));
+                    }
+                
                 view.setFitHeight(imageSize);
                 view.setPreserveRatio(true);
                 worldObjLbl.setGraphic(view);
@@ -321,14 +329,20 @@ public class Timer extends Application {
     public void animateBackground(){
             for (int i = 0; i < worldObjList.size(); i++){                
                 double oldX = worldObjList.get(i).getTranslateX();
+                // System.out.println("width of clouds : " + Double.toString(worldObjList.get(i).getWidth()));
                 // update coordinates
+
                 if(oldX + 1 >= 350){
-                //    worldObjList.get(i).setTranslateX(0); // 
                     worldObjList.get(i).setTranslateX(-worldObjList.get(i).getWidth()); // if star x-coordinate is bigger than screenwidth, reset to 0. 
-                    // String str = Double.toString(worldObjList.get(i).getTranslateX());
-                    // System.out.println("Return vale of getTranslateX : " + str);
+                    worldObjList.get(i).setTranslateY(Math.random() * -250 + 1);
+
                 } else {
-                    worldObjList.get(i).setTranslateX(oldX + 0.25);
+                    if (worldObjList.get(i).getOpacity() == 0.5){
+                        worldObjList.get(i).setTranslateX(oldX + 0.08);
+                    
+                    }   else {
+                        worldObjList.get(i).setTranslateX(oldX + 0.25);
+                    }
                 }
             }
     }
