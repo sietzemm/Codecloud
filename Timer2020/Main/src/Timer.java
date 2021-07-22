@@ -288,16 +288,19 @@ public class Timer extends Application {
             worldObjLbl.setTranslateY(initYcoordinate);
             pane.add(worldObjLbl,0,2);
             worldObjList.add(worldObjLbl);
+    
+            // make clouds appear farther away by making them opaque
+            if (imageSize <= 11){
+                worldObjLbl.setOpacity(0.5);
+                System.out.println("Changed opacity!" + Integer.toString(imageSize));
+            }
+            else {
+                worldObjLbl.setOpacity(1);
+            }
+            
             if (isDay == true){
                 ImageView view = new ImageView(clouds);
                 imageSize = (int) (Math.random() * 20 + 5); // Random image size recalibrated for clouds
-                    
-                    // make clouds appear farther away by making them opaque
-                    if (imageSize <= 11){
-                        worldObjLbl.setOpacity(0.5);
-                        System.out.println("Changed opacity!" + Integer.toString(imageSize));
-                    }
-                
                 view.setFitHeight(imageSize);
                 view.setPreserveRatio(true);
                 worldObjLbl.setGraphic(view);
