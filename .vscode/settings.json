@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": "/Library/Frameworks/Python.framework/Versions/3.8/bin/python3",
+    "python.pythonPath": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
         "/Users/sietzem/Documents/javafx-sdk-11.0.2/**/*.jar"

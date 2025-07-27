@@ -169,7 +169,7 @@ class App:
                 new_y = (y2 + new_y)
                 # print('final values')            
                 # print(new_x,new_y)
-                point = c.create_oval(new_x,new_y,new_x+3,new_y+3,fill="red")
+                point = c.create_oval(new_x,new_y,new_x+1,new_y+1,fill="red")
 
                 # updates the values for iteration
                 seed_points[0][-2] = new_x
@@ -196,7 +196,7 @@ class App:
                 new_y = (y2 + new_y)
                 # print('final values')            
                 # print(new_x,new_y)
-                point = c.create_oval(new_x,new_y,new_x+3,new_y+3,fill="blue")
+                point = c.create_oval(new_x,new_y,new_x+1,new_y+1,fill="blue")
 
                 # updates the values for iteration
                 seed_points[0][-2] = new_x
@@ -224,7 +224,7 @@ class App:
        
                 # print(new_x,new_y)
 
-                point = c.create_oval(new_x,new_y,new_x+3,new_y+3,fill="yellow")
+                point = c.create_oval(new_x,new_y,new_x+1,new_y+1,fill="yellow")
 
                 # updates the values for iteration
                 seed_points[0][-2] = new_x

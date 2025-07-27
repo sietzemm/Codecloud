@@ -10,7 +10,7 @@ print(sys.version)
 
 from tkinter import *
 from pynput import keyboard
-from pydub import AudioSegment
+# from pydub import AudioSegment
 from pynput.keyboard import Key
 
 print(sys.version)
