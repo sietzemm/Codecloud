@@ -1,0 +1,19 @@
+# Virtuele omgeving
+.venv/
+
+# Python cache en bytecode bestanden
+__pycache__/
+*.py[cod]
+
+# VS Code instellingen
+.vscode/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Logbestanden
+*.log
+
+# OS-specifieke bestanden
+.DS_Store
+Thumbs.db
